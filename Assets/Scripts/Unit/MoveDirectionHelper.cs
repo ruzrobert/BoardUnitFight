@@ -34,7 +34,7 @@ public static class MoveDirectionHelper
 	{
 		float stepAngle = 360f / 4f;
 		float stepHalf = stepAngle * 0.5f;
-		directionAngle = isStraight ? Quaternion.Euler(0f, 0f, directionAngle - stepHalf).eulerAngles.z : directionAngle;
+		directionAngle = isStraight ? Quaternion.Euler(0f, 0f, directionAngle + stepHalf).eulerAngles.z : directionAngle;
 
 		if (MathExt.IsBetween(directionAngle, 0f, stepAngle))
 			return isStraight ? MoveDirection.Left : MoveDirection.DiagonalUpLeft;
@@ -52,7 +52,7 @@ public static class MoveDirectionHelper
 	{
 		float stepAngle = 360f / 8f;
 		float stepHalf = stepAngle * 0.5f;
-		directionAngle = Quaternion.Euler(0f, 0f, directionAngle - stepHalf).eulerAngles.z;
+		directionAngle = Quaternion.Euler(0f, 0f, directionAngle + stepHalf).eulerAngles.z;
 
 		if (MathExt.IsBetween(directionAngle, 0f, stepAngle))
 			return MoveDirection.Left;
