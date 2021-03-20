@@ -64,12 +64,12 @@ public class UnitGraphics : MonoBehaviour, IUnitComponent
 		IEnumerator Sequence()
 		{
 			Vector3 startPosition = transform.position;
+			Vector3 endPosition = Vector3.Lerp(startPosition, attackUnit.transform.position, 0.4f);
 
 			float t = 0f;
 			while (t < 1f)
 			{
 				t += Time.deltaTime / 0.1f;
-				Vector3 endPosition = Vector3.Lerp(startPosition, attackUnit.transform.position, 0.4f);
 				transform.position = Vector3.Lerp(startPosition, endPosition, attackStartCurve.Evaluate(t));
 				yield return null;
 			}
@@ -131,13 +131,13 @@ public class UnitGraphics : MonoBehaviour, IUnitComponent
 		IEnumerator Sequence()
 		{
 			Vector3 startScale = transform.localScale;
-			Vector3 endScale = startScale * 1.2f;
+			Vector3 endScale = startScale * 1.15f;
 
 			float t = 0f;
 			while (t < 1f)
 			{
-				t += Time.deltaTime / 0.2f;
-				spriteRenderer.color.SetA(Mathf.Lerp(1f, 0f, t));
+				t += Time.deltaTime / 0.4f;
+				spriteRenderer.color = spriteRenderer.color.SetA(Mathf.Lerp(1f, 0f, t));
 				transform.localScale = Vector3.Lerp(startScale, endScale, t);
 				yield return null;
 			}

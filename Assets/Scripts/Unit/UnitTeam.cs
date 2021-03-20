@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public class UnitTeam
 {
+    [SerializeField] private string teamName = "";
     [SerializeField] private TeamSide side = TeamSide.Left;
 
     [Space]
@@ -14,6 +15,7 @@ public class UnitTeam
     [SerializeField] private Unit unitPrefab;
     [SerializeField] private Color unitColor = Color.blue;
 
+    public string TeamName => teamName;
     public TeamSide Side { get => side; set => side = value; }
 
     public RangeI UnitSpawnCountRange => unitSpawnCountRange;

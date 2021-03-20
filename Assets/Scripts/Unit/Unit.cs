@@ -59,6 +59,8 @@ public class Unit : MonoBehaviour
 
     private void OnHided()
 	{
+        Mover.Cell.FreeFrom(this);
+
         OnDone.Invoke();
         gameObject.SetActive(false);
 	}

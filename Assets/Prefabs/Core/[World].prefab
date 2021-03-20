@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 7641432693921780330}
-  logicManager: {fileID: 7641432693921780328}
+  fightController: {fileID: 7641432693921780328}
   units: []
 --- !u!114 &7641432693921780330
 MonoBehaviour:
@@ -362,6 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftTeam:
+    teamName: Blue
     side: 0
     unitSpawnCountRange:
       min: 2
@@ -371,6 +372,7 @@ MonoBehaviour:
       type: 3}
     unitColor: {r: 0, g: 0, b: 1, a: 1}
   rightTeam:
+    teamName: Red
     side: 1
     unitSpawnCountRange:
       min: 2
@@ -391,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f8062fcd40b1049bf08bd688b6b694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatePeriodicity: 1
+  updatePeriodicity: 0.75
 --- !u!1 &7641432693934611184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2302,7 +2304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7641432694708387536}
   m_Layer: 0
-  m_Name: World
+  m_Name: '[World]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

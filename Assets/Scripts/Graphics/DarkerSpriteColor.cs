@@ -51,13 +51,13 @@ public class DarkerSpriteColor : MonoBehaviour
 	{
 		if (thisSpriteRenderer && sourceSpriteRenderer)
 		{
-			Color color = sourceSpriteRenderer.color;
+			Color sourceColor = sourceSpriteRenderer.color;
 
-			Color.RGBToHSV(color, out float H, out float S, out float V);
+			Color.RGBToHSV(sourceColor, out float H, out float S, out float V);
 			V = Mathf.Clamp01(V - darkness);
-			color = Color.HSVToRGB(H, S, V);
 
-			thisSpriteRenderer.color = color;
+			Color newColor = Color.HSVToRGB(H, S, V).SetA(sourceColor.a);
+			thisSpriteRenderer.color = newColor;
 		}
 	}
 }

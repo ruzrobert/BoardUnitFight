@@ -1,18 +1,24 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
-public class UnitLogicManager : MonoBehaviour
+public class UnitFightController : MonoBehaviour
 {
 	public UnitManager UnitManager { get; private set; }
 
 	[Space]
 	[SerializeField, Min(0)] private float updatePeriodicity = 1f;
+	
+	public TeamSide WinnerTeam { get; private set; }
 
 	private float lastUpdateTime = 0f;
 
 	public void Setup(UnitManager unitManager)
 	{
 		UnitManager = unitManager;
+	}
 
+	private void OnEnable()
+	{
 		lastUpdateTime = Time.time;
 	}
 
@@ -46,5 +52,31 @@ public class UnitLogicManager : MonoBehaviour
 				UnitManager.Units[i].Logic.UpdateAttack();
 			}
 		}
+
+		CheckForGameEnd();
+	}
+
+	private void CheckForGameEnd()
+	{
+		int countOfAliveTeams = UnitManager.Units.Select(x => x.Team).Distinct().Count();
+
+		if (countOfAliveTeams <= 1)
+		{
+			UnitTeam winnerTeam = null;
+
+			if (countOfAliveTeams == 1)
+			{
+				winnerTeam = UnitManager.Units.First().Team;
+			}
+
+			OnGameEnded(winnerTeam);
+		}
+	}
+
+	private void OnGameEnded(UnitTeam winnerTeam)
+	{
+		this.enabled = false;
+
+		GameManager.Instance.EndGame(winnerTeam);
 	}
 }

@@ -19,8 +19,12 @@ public class UnitHealth : MonoBehaviour, IUnitComponent
 	public float AttackDamage => attackDamage;
 	public float CurrentHealth => currentHealth;
 
+	public float NormalizedCurrentHealth => Mathf.InverseLerp(0f, maxHealth, currentHealth);
+
 	public UnityEvent OnDamageReceived { get; private set; } = new UnityEvent();
 	public UnityEvent OnDeath { get; private set; } = new UnityEvent();
+
+	private UIHealthBar healthBar;
 
 	public void Setup(Unit unit)
 	{
@@ -28,6 +32,8 @@ public class UnitHealth : MonoBehaviour, IUnitComponent
 
 		IsAlive = true;
 		currentHealth = maxHealth;
+
+		healthBar = GameUI.Instance.Gameplay.HealthBars.Create(this);
 	}
 
 	public void TakeDamage(float damage)
@@ -45,5 +51,10 @@ public class UnitHealth : MonoBehaviour, IUnitComponent
 		{
 			OnDamageReceived.Invoke();
 		}
+	}
+
+	public void Kill()
+	{
+		TakeDamage(currentHealth);
 	}
 }
