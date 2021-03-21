@@ -27,7 +27,7 @@ public static class MoveDirectionHelper
 
 	private static MoveDirection DirectionAngleToDiagonalMoveDirection(float directionAngle)
 	{
-		return DirectionAngleToFourMoveDirections(directionAngle, isStraight: true);
+		return DirectionAngleToFourMoveDirections(directionAngle, isStraight: false);
 	}
 
 	private static MoveDirection DirectionAngleToFourMoveDirections(float directionAngle, bool isStraight)
