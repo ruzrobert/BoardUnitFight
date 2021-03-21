@@ -41,7 +41,7 @@ public class UnitAttacker : MonoBehaviour, IUnitComponent
 	{
 		if (AttackTarget)
 		{
-			AttackTarget.Health.TakeDamage(Unit.Health.AttackDamage);
+			AttackTarget.Health.TakeDamage(attackDamage);
 		}
 	}
 

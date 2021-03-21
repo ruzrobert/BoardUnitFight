@@ -8,15 +8,11 @@ public class UnitHealth : MonoBehaviour, IUnitComponent
 	[Space]
 	[SerializeField, Min(0)] private float maxHealth = 100f;
 
-	[Space]
-	[SerializeField] private float attackDamage = 25f;
-
 	[Header("Info")]
 	[SerializeField] private float currentHealth = 0f;
 
 	public bool IsAlive { get; private set; } = false;
-
-	public float AttackDamage => attackDamage;
+	
 	public float CurrentHealth => currentHealth;
 
 	public float NormalizedCurrentHealth => Mathf.InverseLerp(0f, maxHealth, currentHealth);
