@@ -9,8 +9,9 @@ public class EventManager : MonoBehaviour
 {
 	public static EventManager Instance { get; private set; }
 
+	public UnityEvent OnStartFightRequest { get; private set; } = new UnityEvent();
 	public UnityEvent OnGameplayStarting { get; private set; } = new UnityEvent();
-	public UnityEvent OnGameStateChanged { get; private set; } = new UnityEvent();
+	public UnityEventGameState OnGameStateChanged { get; private set; } = new UnityEventGameState();
 	public UnityEventUnitTeam OnGameEnded { get; private set; } = new UnityEventUnitTeam();
 
 	private void Awake()
@@ -20,4 +21,7 @@ public class EventManager : MonoBehaviour
 
 	[Serializable]
 	public class UnityEventUnitTeam : UnityEvent<UnitTeam> { }
+
+	[Serializable]
+	public class UnityEventGameState : UnityEvent<GameState> { }
 }

@@ -10,6 +10,8 @@ public class MainMenuView : UIView
 	[SerializeField] private Button startFightButton;
 	[SerializeField] private Button restartButton;
 
+	private bool isLevelCompleteState = false;
+
 	public override void Setup(GameUI gameUI)
 	{
 		base.Setup(gameUI);
@@ -31,6 +33,8 @@ public class MainMenuView : UIView
 
 	protected override void OnGameStateChanged(GameState gameState)
 	{
+		isLevelCompleteState = gameState == GameState.LevelComplete;
+
 		if (gameState == GameState.MainMenu || gameState == GameState.LevelComplete)
 		{
 			Show();
@@ -43,12 +47,10 @@ public class MainMenuView : UIView
 
 	protected override void OnShowing()
 	{
-		bool isLevelComplete = GameManager.Instance.CurrentGameState == GameState.LevelComplete;
+		startFightButton.gameObject.SetActive(isLevelCompleteState == false);
+		restartButton.gameObject.SetActive(isLevelCompleteState);
 
-		startFightButton.gameObject.SetActive(isLevelComplete == false);
-		restartButton.gameObject.SetActive(isLevelComplete);
-
-		if (isLevelComplete == false)
+		if (isLevelCompleteState == false)
 		{
 			winText.enabled = false;
 		}
@@ -60,6 +62,6 @@ public class MainMenuView : UIView
 
 	public void StartFightButton()
 	{
-		GameManager.Instance.StartFight();
+		EventManager.Instance.OnStartFightRequest.Invoke();
 	}
 }

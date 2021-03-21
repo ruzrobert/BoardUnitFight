@@ -12,16 +12,11 @@ public abstract class UIView : MonoBehaviour
 
 	private Coroutine visibilityCoroutine = null;
 
-	private void Awake()
-	{
-		
-	}
-
 	public virtual void Setup(GameUI gameUI)
 	{
 		GameUI = gameUI;
 
-		EventManager.Instance.OnGameStateChanged.AddListener(OnGameStateChangedInternal);
+		EventManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
 	}
 
 	private void OnValidate()
@@ -30,11 +25,6 @@ public abstract class UIView : MonoBehaviour
 		{
 			canvasGroup = GetComponent<CanvasGroup>();
 		}
-	}
-
-	private void OnGameStateChangedInternal()
-	{
-		OnGameStateChanged(GameManager.Instance.CurrentGameState);
 	}
 
 	protected virtual void OnGameStateChanged(GameState gameState) { }

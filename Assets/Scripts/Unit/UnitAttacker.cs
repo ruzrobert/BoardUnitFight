@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitLogic : MonoBehaviour, IUnitComponent
+public class UnitAttacker : MonoBehaviour, IUnitComponent
 {
+	[Space]
+	[SerializeField] private float attackDamage = 25f;
+
 	[Space]
 	[SerializeField] private bool canAttackStraight = true;
 	[SerializeField] private bool canAttackDiagonally = true;
@@ -10,8 +13,6 @@ public class UnitLogic : MonoBehaviour, IUnitComponent
 	public Unit Unit { get; private set; }
 
 	public Unit AttackTarget { get; private set; }
-
-	public List<Unit> AttackedByUnits { get; private set; } = new List<Unit>();
 
 	public void Setup(Unit unit)
 	{
@@ -24,32 +25,11 @@ public class UnitLogic : MonoBehaviour, IUnitComponent
 		SetAttackTarget(targetUnit);
 	}
 
-	public bool UpdateMovement()
-	{
-		if (AttackTarget)
-		{
-			if (AttackTarget.Mover.Cell.IsNeighbourOf(Unit.Mover.Cell, includeDiagonal: false) == false)
-			{
-				Vector3 to = AttackTarget.transform.position;
-				Vector3 from = Unit.transform.position;
-
-				float angleRad = Mathf.Atan2(to.y - from.y, to.x - from.x);
-				float angleDeg = 180f / Mathf.PI * angleRad * -1f + 180f;
-
-				float walkDirection = Quaternion.Euler(0f, 0f, angleDeg).eulerAngles.z;
-
-				Unit.Mover.MoveInDirection(walkDirection);
-			}
-		}
-
-		return false;
-	}
-
 	public void UpdateAttack()
 	{
 		if (AttackTarget)
 		{
-			if (AttackTarget.Mover.Cell.IsNeighbourOf(Unit.Mover.Cell, 
+			if (AttackTarget.Mover.Cell.IsNeighbourOf(Unit.Mover.Cell,
 						includeStraight: canAttackStraight, includeDiagonal: canAttackDiagonally))
 			{
 				Unit.AttackUnit(AttackTarget);
@@ -72,17 +52,7 @@ public class UnitLogic : MonoBehaviour, IUnitComponent
 			return;
 		}
 
-		if (AttackTarget && AttackTarget != targetUnit)
-		{
-			AttackTarget.Logic.AttackedByUnits.Remove(this.Unit);
-		}
-
 		AttackTarget = targetUnit;
-
-		if (AttackTarget)
-		{
-			AttackTarget.Logic.AttackedByUnits.Add(this.Unit);
-		}
 	}
 
 	private Unit FindTargetEnemyUnit()

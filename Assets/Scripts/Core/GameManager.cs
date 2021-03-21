@@ -2,8 +2,6 @@
 
 public class GameManager : MonoBehaviour
 {
-	public static GameManager Instance { get; private set; }
-
 	[Space]
 	[SerializeField] private GameStateManager stateManager;
 
@@ -11,11 +9,14 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-		Instance = this;
+		EventManager.Instance.OnStartFightRequest.AddListener(OnStartFightRequest);
+		EventManager.Instance.OnGameEnded.AddListener(OnGameEnded);
 	}
 
 	private void Start()
 	{
+		Application.targetFrameRate = Screen.currentResolution.refreshRate;
+
 		StartGame();
 	}
 
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
 		stateManager.ChangeStateToMainMenu();
 	}
 
-	public void StartFight()
+	private void OnStartFightRequest()
 	{
 		if (stateManager.CurrentGameState == GameState.MainMenu || stateManager.CurrentGameState == GameState.LevelComplete)
 		{
@@ -32,9 +33,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void EndGame(UnitTeam winnerTeam)
+	private void OnGameEnded(UnitTeam winnerTeam)
 	{
-		EventManager.Instance.OnGameEnded.Invoke(winnerTeam);
 		stateManager.ChangeStateToLevelComplete();
 	}
 }

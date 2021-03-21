@@ -16,7 +16,7 @@ public class GameStateManager : MonoBehaviour
 		}
 
 		CurrentGameState = gameState;
-		EventManager.Instance.OnGameStateChanged.Invoke();
+		EventManager.Instance.OnGameStateChanged.Invoke(gameState);
 
 		switch (gameState)
 		{

@@ -44,7 +44,10 @@ public class UIHealthBar : MonoBehaviour
 
 	private void Update()
 	{
-        UpdatePosition();
+        if (isVisible)
+        {
+            UpdatePosition();
+        }
 	}
 
     private void UpdatePosition()
@@ -102,6 +105,7 @@ public class UIHealthBar : MonoBehaviour
             PlayVisibility(show: true);
 
             targetPosition = Vector2.zero;
+            UpdatePosition();
         }
 	}
 

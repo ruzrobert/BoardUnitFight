@@ -33,7 +33,7 @@ public class UnitFightController : MonoBehaviour
 		// Update Attack Target for every Unit
 		for (int i = 0; i < UnitManager.Units.Count; i++)
 		{
-			UnitManager.Units[i].Logic.UpdateAttackTarget();
+			UnitManager.Units[i].BehaviourController.UpdateAttackTarget();
 		}
 
 		// Update Movement for every Unit
@@ -41,7 +41,7 @@ public class UnitFightController : MonoBehaviour
 
 		for (int i = 0; i < UnitManager.Units.Count; i++)
 		{
-			movementUpdated[i] = UnitManager.Units[i].Logic.UpdateMovement();
+			movementUpdated[i] = UnitManager.Units[i].BehaviourController.UpdateMovement();
 		}
 
 		// Update Attack for every Unit
@@ -49,7 +49,7 @@ public class UnitFightController : MonoBehaviour
 		{
 			if (movementUpdated[i] == false)
 			{
-				UnitManager.Units[i].Logic.UpdateAttack();
+				UnitManager.Units[i].BehaviourController.UpdateAttack();
 			}
 		}
 
@@ -76,7 +76,7 @@ public class UnitFightController : MonoBehaviour
 	private void OnGameEnded(UnitTeam winnerTeam)
 	{
 		this.enabled = false;
-
-		GameManager.Instance.EndGame(winnerTeam);
+		
+		EventManager.Instance.OnGameEnded.Invoke(winnerTeam);
 	}
 }

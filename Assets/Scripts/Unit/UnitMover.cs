@@ -20,6 +20,27 @@ public class UnitMover : MonoBehaviour, IUnitComponent
 		Unit = unit;
 	}
 
+	public bool UpdateMovement()
+	{
+		if (Unit.Attacker.AttackTarget)
+		{
+			if (Unit.Attacker.AttackTarget.Mover.Cell.IsNeighbourOf(Unit.Mover.Cell, includeDiagonal: false) == false)
+			{
+				Vector3 to = Unit.Attacker.AttackTarget.transform.position;
+				Vector3 from = Unit.transform.position;
+
+				float angleRad = Mathf.Atan2(to.y - from.y, to.x - from.x);
+				float angleDeg = 180f / Mathf.PI * angleRad * -1f + 180f;
+
+				float walkDirection = Quaternion.Euler(0f, 0f, angleDeg).eulerAngles.z;
+
+				Unit.Mover.MoveInDirection(walkDirection);
+			}
+		}
+
+		return false;
+	}
+
 	public void TeleportToCell(BoardCell cell)
 	{
 		if (Cell) Cell.FreeFrom(Unit);

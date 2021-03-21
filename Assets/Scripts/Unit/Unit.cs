@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class Unit : MonoBehaviour
@@ -8,12 +7,14 @@ public class Unit : MonoBehaviour
     [SerializeField] private UnitGraphics graphics;
     [SerializeField] private UnitMover mover;
     [SerializeField] private UnitHealth health;
-    [SerializeField] private UnitLogic logic;
+    [SerializeField] private UnitAttacker attacker;
+    [SerializeField] private UnitBehaviourController behaviourController;
 
     public UnitGraphics Graphics => graphics;
     public UnitMover Mover => mover;
     public UnitHealth Health => health;
-    public UnitLogic Logic => logic;
+    public UnitAttacker Attacker => attacker;
+    public UnitBehaviourController BehaviourController => behaviourController;
 
     public UnitManager UnitManager { get; private set; }
     public UnitTeam Team { get; private set; }
@@ -25,7 +26,8 @@ public class Unit : MonoBehaviour
         graphics.Setup(this);
         mover.Setup(this);
         health.Setup(this);
-        logic.Setup(this);
+        attacker.Setup(this);
+        behaviourController.Setup(this);
 
         graphics.OnTriggerAttackDamage.AddListener(OnGraphicsTriggeredAttackDamage);
         graphics.OnHided.AddListener(OnHided);
@@ -44,7 +46,7 @@ public class Unit : MonoBehaviour
 
     private void OnGraphicsTriggeredAttackDamage()
 	{
-        logic.DoDamageToCurrentTarget();
+        attacker.DoDamageToCurrentTarget();
 	}
 
     private void OnReceivedDamage()
