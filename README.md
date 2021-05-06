@@ -3,9 +3,10 @@
 **Task description**
 
 Create a 2D game scene made of a grid with a size 6 x 8. There should be a 'Start fight' button, after which a random count of units of Team 1 appear on the left, and Team 2 units appear on the right.
-Units are fighting by themselves until only one team survives (or none of them - a draw).
-Units should have health bars.
-Units can move in any direction for 1 cell.
+
+Units are fighting by themselves until only one team survives (or none of them - a draw).\
+Units should have health bars.\
+Units can move in any direction for 1 cell.\
 Units should attack opponent units that are within 1 cell. The attack can be done in any direction.
 
 It is not allowed to use ready assets for this task.
