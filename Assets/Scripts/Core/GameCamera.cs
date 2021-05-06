@@ -14,6 +14,8 @@ public class GameCamera : MonoBehaviour
 	private void Awake()
 	{
 		Instance = this;
+
+		EventManager.Instance.GameState.OnGameStateChanged.AddListener(OnGameStateChanged);
 	}
 
 	private void Update()
@@ -28,12 +30,17 @@ public class GameCamera : MonoBehaviour
 		}
 	}
 
+	private void OnGameStateChanged(GameState gameState)
+	{
+		AdjustCameraSizeToBoardSize();
+	}
+
 	private void OnScreenSizeChanged()
 	{
 		AdjustCameraSizeToBoardSize();
 	}
 
-	public void AdjustCameraSizeToBoardSize()
+	private void AdjustCameraSizeToBoardSize()
 	{
 		BoardCell[,] boardCells = GameBoard.Instance.Generator.BoardCells;
 

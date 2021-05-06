@@ -177,7 +177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  attackDamage: 25
   currentHealth: 0
 --- !u!114 &4060646134126246089
 MonoBehaviour:

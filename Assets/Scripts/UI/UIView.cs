@@ -16,7 +16,7 @@ public abstract class UIView : MonoBehaviour
 	{
 		GameUI = gameUI;
 
-		EventManager.Instance.OnGameStateChanged.AddListener(OnGameStateChanged);
+		EventManager.Instance.GameState.OnGameStateChanged.AddListener(OnGameStateChanged);
 	}
 
 	private void OnValidate()

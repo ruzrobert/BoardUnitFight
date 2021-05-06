@@ -20,7 +20,7 @@ public class UnitManager : MonoBehaviour
 
 		fightController.enabled = false;
 
-		EventManager.Instance.OnGameplayStarting.AddListener(OnGameplayStarting);
+		EventManager.Instance.GameState.OnGameplayStarting.AddListener(OnGameplayStarting);
 	}
 
 	private void OnGameplayStarting()

@@ -22,12 +22,7 @@ public class BoardGenerator : MonoBehaviour
 
 	private void Awake()
 	{
-		GenerateBoard();
-	}
-
-	private void Start()
-	{
-		GameCamera.Instance.AdjustCameraSizeToBoardSize();
+		EventManager.Instance.Loading.LoadLevel.AddListener(GenerateBoard);
 	}
 
 #if UNITY_EDITOR
@@ -48,7 +43,7 @@ public class BoardGenerator : MonoBehaviour
 	}
 #endif
 
-	public void GenerateBoard()
+	private void GenerateBoard()
 	{
 		if (Application.isPlaying)
 		{
@@ -125,7 +120,7 @@ public class BoardGenerator : MonoBehaviour
 			for (int rowIdx = 0; rowIdx < rowCount; rowIdx++)
 			{
 				BoardCell cell = BoardCells[columnIdx, rowIdx];
-				
+
 				if (cell.IsOccupied == false)
 				{
 					yield return cell;

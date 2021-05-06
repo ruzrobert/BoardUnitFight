@@ -9,20 +9,27 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-		EventManager.Instance.OnStartFightRequest.AddListener(OnStartFightRequest);
-		EventManager.Instance.OnGameEnded.AddListener(OnGameEnded);
+		EventManager.Instance.GameState.OnStartFightRequest.AddListener(OnStartFightRequest);
+		EventManager.Instance.GameState.OnGameEnded.AddListener(OnGameEnded);
 	}
 
 	private void Start()
 	{
 		Application.targetFrameRate = Screen.currentResolution.refreshRate;
-
+		
 		StartGame();
 	}
 
 	private void StartGame()
 	{
+		LoadLevel();
+
 		stateManager.ChangeStateToMainMenu();
+	}
+
+	private void LoadLevel()
+	{
+		EventManager.Instance.Loading.LoadLevel.Invoke();
 	}
 
 	private void OnStartFightRequest()

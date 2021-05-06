@@ -16,14 +16,14 @@ public class GameStateManager : MonoBehaviour
 		}
 
 		CurrentGameState = gameState;
-		EventManager.Instance.OnGameStateChanged.Invoke(gameState);
+		EventManager.Instance.GameState.OnGameStateChanged.Invoke(gameState);
 
 		switch (gameState)
 		{
 			case GameState.MainMenu:
 				break;
 			case GameState.Gameplay:
-				EventManager.Instance.OnGameplayStarting.Invoke();
+				EventManager.Instance.GameState.OnGameplayStarting.Invoke();
 				break;
 			case GameState.LevelComplete:
 				break;

@@ -77,6 +77,6 @@ public class UnitFightController : MonoBehaviour
 	{
 		this.enabled = false;
 		
-		EventManager.Instance.OnGameEnded.Invoke(winnerTeam);
+		EventManager.Instance.GameState.OnGameEnded.Invoke(winnerTeam);
 	}
 }

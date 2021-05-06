@@ -20,8 +20,6 @@ public class UnitHealth : MonoBehaviour, IUnitComponent
 	public UnityEvent OnDamageReceived { get; private set; } = new UnityEvent();
 	public UnityEvent OnDeath { get; private set; } = new UnityEvent();
 
-	private UIHealthBar healthBar;
-
 	public void Setup(Unit unit)
 	{
 		Unit = unit;
@@ -29,7 +27,7 @@ public class UnitHealth : MonoBehaviour, IUnitComponent
 		IsAlive = true;
 		currentHealth = maxHealth;
 
-		healthBar = GameUI.Instance.Gameplay.HealthBars.Create(this);
+		_ = UIHealthBars.Instance.Create(this);
 	}
 
 	public void TakeDamage(float damage)

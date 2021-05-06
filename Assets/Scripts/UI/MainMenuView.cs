@@ -16,7 +16,7 @@ public class MainMenuView : UIView
 	{
 		base.Setup(gameUI);
 
-		EventManager.Instance.OnGameEnded.AddListener(OnGameEnded);
+		EventManager.Instance.GameState.OnGameEnded.AddListener(OnGameEnded);
 	}
 
 	private void OnGameEnded(UnitTeam winnerTeam)
@@ -62,6 +62,6 @@ public class MainMenuView : UIView
 
 	public void StartFightButton()
 	{
-		EventManager.Instance.OnStartFightRequest.Invoke();
+		EventManager.Instance.GameState.OnStartFightRequest.Invoke();
 	}
 }

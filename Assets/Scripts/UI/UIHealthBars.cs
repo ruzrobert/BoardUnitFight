@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class UIHealthBars : MonoBehaviour
 {
+	public static UIHealthBars Instance { get; private set; }
+
 	[Space]
 	[SerializeField] private UIHealthBar healthBarPrefab;
 
@@ -11,9 +13,14 @@ public class UIHealthBars : MonoBehaviour
 
 	public Vector2 HealthBarOffset => healthBarOffset;
 
-	private List<UIHealthBar> healthBars = new List<UIHealthBar>();
+	private readonly List<UIHealthBar> healthBars = new List<UIHealthBar>();
 
-    public UIHealthBar Create(UnitHealth healthSystem)
+	public void Setup()
+	{
+		Instance = this;
+	}
+
+	public UIHealthBar Create(UnitHealth healthSystem)
 	{
 		UIHealthBar healthBar = Instantiate(healthBarPrefab, transform);
 		healthBar.Setup(this, healthSystem);
@@ -23,9 +30,16 @@ public class UIHealthBars : MonoBehaviour
 		return healthBar;
 	}
 
-	private void RegisterHealthBar(UIHealthBar healthBar) => healthBars.Add(healthBar);
-	public void UnRegisterHealthBar(UIHealthBar healthBar) => healthBars.Remove(healthBar);
-	
+	private void RegisterHealthBar(UIHealthBar healthBar)
+	{
+		healthBars.Add(healthBar);
+	}
+
+	public void UnRegisterHealthBar(UIHealthBar healthBar)
+	{
+		healthBars.Remove(healthBar);
+	}
+
 	public void HideAllHealthBars()
 	{
 		for (int i = healthBars.Count - 1; i >= 0; i--)

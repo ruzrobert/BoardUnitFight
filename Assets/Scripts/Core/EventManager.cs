@@ -9,10 +9,22 @@ public class EventManager : MonoBehaviour
 {
 	public static EventManager Instance { get; private set; }
 
-	public UnityEvent OnStartFightRequest { get; private set; } = new UnityEvent();
-	public UnityEvent OnGameplayStarting { get; private set; } = new UnityEvent();
-	public UnityEventGameState OnGameStateChanged { get; private set; } = new UnityEventGameState();
-	public UnityEventUnitTeam OnGameEnded { get; private set; } = new UnityEventUnitTeam();
+	public class LoadingEvents
+	{
+		public UnityEvent LoadLevel { get; } = new UnityEvent();
+	}
+
+	public class GameStateEvents
+	{
+		public UnityEvent OnStartFightRequest { get; } = new UnityEvent();
+		public UnityEvent OnGameplayStarting { get; } = new UnityEvent();
+
+		public UnityEventGameState OnGameStateChanged { get; } = new UnityEventGameState();
+		public UnityEventUnitTeam OnGameEnded { get; } = new UnityEventUnitTeam();
+	}
+
+	public LoadingEvents Loading { get; } = new LoadingEvents();
+	public GameStateEvents GameState { get; } = new GameStateEvents();
 
 	private void Awake()
 	{
